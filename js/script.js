@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const poster = document.getElementById('3d-poster');
     let scene, camera, renderer, cube;
 
-    function init3DPoster() {
+       function init3DPoster() {
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(75, poster.clientWidth / poster.clientHeight, 0.1, 1000);
         renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -135,6 +135,76 @@ document.addEventListener('DOMContentLoaded', function() {
 
     typeWriter(originalText);
 
+    // Mood-based Recommendations
+    const moodButtons = document.querySelectorAll('.mood-btn');
+    const moodRecommendations = document.querySelector('.mood-recommendations');
+
+    const moodMovies = {
+        happy: [
+            { title: "Laughter Express", genre: "Comedy" },
+            { title: "Sunny Side Up", genre: "Feel-good" },
+            { title: "Dancing in the Rain", genre: "Musical" }
+        ],
+        sad: [
+            { title: "Tearful Melodies", genre: "Drama" },
+            { title: "Rainy Days", genre: "Melancholic" },
+            { title: "Bittersweet Symphony", genre: "Romance" }
+        ],
+        excited: [
+            { title: "Adrenaline Rush", genre: "Action" },
+            { title: "Cosmic Adventure", genre: "Sci-Fi" },
+            { title: "Treasure Hunt", genre: "Adventure" }
+        ],
+        relaxed: [
+            { title: "Zen Garden", genre: "Documentary" },
+            { title: "Whispers of Nature", genre: "Nature" },
+            { title: "Cozy Nights", genre: "Slice of Life" }
+        ]
+    };
+
+    moodButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const mood = button.dataset.mood;
+            moodRecommendations.innerHTML = '';
+            moodMovies[mood].forEach(movie => {
+                const movieCard = document.createElement('div');
+                movieCard.classList.add('movie-card');
+                movieCard.innerHTML = `
+                    <img src="https://via.placeholder.com/200x300?text=${movie.title}" alt="${movie.title}">
+                    <div class="movie-card-content">
+                        <h3 class="movie-card-title">${movie.title}</h3>
+                        <p class="movie-card-info">${movie.genre}</p>
+                    </div>
+                `;
+                moodRecommendations.appendChild(movieCard);
+            });
+        });
+    });
+
+    // Virtual Theater
+    const theaterContainer = document.querySelector('.theater-container');
+    const seats = document.querySelector('.seats');
+    const startTheaterButton = document.getElementById('start-theater');
+    const theaterVideo = document.getElementById('theater-video');
+
+    function createSeats() {
+        for (let i = 0; i < 30; i++) {
+            const seat = document.createElement('div');
+            seat.classList.add('seat');
+            seat.addEventListener('click', () => {
+                seat.classList.toggle('occupied');
+            });
+            seats.appendChild(seat);
+        }
+    }
+
+    createSeats();
+
+    startTheaterButton.addEventListener('click', () => {
+        theaterVideo.play();
+        startTheaterButton.style.display = 'none';
+    });
+
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -181,4 +251,24 @@ document.addEventListener('DOMContentLoaded', function() {
     movieCards.forEach(card => slideInObserver.observe(card));
 
     // Populate coming soon section
-    const comingSoonSlider = document.querySelector('.coming-soon
+    const comingSoonSlider = document.querySelector('.coming-soon-slider');
+    const comingSoonMovies = [
+        { title: "Future Shock", releaseDate: "Coming next month" },
+        { title: "Mystic Realms", releaseDate: "In 2 months" },
+        { title: "Quantum Leap", releaseDate: "Coming soon" },
+        { title: "Echoes of Time", releaseDate: "Next year" }
+    ];
+
+    comingSoonMovies.forEach(movie => {
+        const movieCard = document.createElement('div');
+        movieCard.classList.add('movie-card');
+        movieCard.innerHTML = `
+            <img src="https://via.placeholder.com/200x300?text=${movie.title}" alt="${movie.title}">
+            <div class="movie-card-content">
+                <h3 class="movie-card-title">${movie.title}</h3>
+                <p class="movie-card-info">${movie.releaseDate}</p>
+            </div>
+        `;
+        comingSoonSlider.appendChild(movieCard);
+    });
+});
