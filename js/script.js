@@ -9,6 +9,59 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Cinematic Time Travel
+    const eraButtons = document.querySelectorAll('.era-btn');
+    eraButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const era = button.dataset.era;
+            document.body.className = `era-${era}`;
+            updateContentForEra(era);
+        });
+    });
+
+    function updateContentForEra(era) {
+        // Update content based on the selected era
+        const eraContent = {
+            '1920s': {
+                movies: ['The Gold Rush', 'Metropolis', 'The General'],
+                style: 'sepia-toned silent films'
+            },
+            '1950s': {
+                movies: ['Singin\' in the Rain', 'Rear Window', 'Some Like It Hot'],
+                style: 'classic Hollywood golden age'
+            },
+            '1980s': {
+                movies: ['The Breakfast Club', 'Back to the Future', 'E.T.'],
+                style: 'neon-colored blockbusters'
+            },
+            '2000s': {
+                movies: ['The Lord of the Rings', 'Avatar', 'The Dark Knight'],
+                style: 'CGI-enhanced epics'
+            },
+            'future': {
+                movies: ['Holo-Experience 3000', 'Mind-Meld Adventures', 'Quantum Leap Saga'],
+                style: 'immersive holographic experiences'
+            }
+        };
+
+        const content = eraContent[era];
+        const trendingSection = document.querySelector('#trending');
+        trendingSection.innerHTML = `
+            <h2>Trending in the ${era}</h2>
+            <p>Experience the ${content.style} of this era!</p>
+            <div class="content-slider">
+                ${content.movies.map(movie => `
+                    <div class="movie-card">
+                        <img src="https://via.placeholder.com/200x300?text=${movie}" alt="${movie}">
+                        <div class="movie-card-content">
+                            <h3 class="movie-card-title">${movie}</h3>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
     // Populate movie cards
     const contentSlider = document.querySelector('.content-slider');
     const movies = [
@@ -40,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const genreCard = document.createElement('div');
         genreCard.classList.add('genre-card');
         genreCard.innerHTML = `
-            <img src="https://via.placeholder.com/150x100?text=${genre}" alt="${genre}">
+                       <img src="https://via.placeholder.com/150x100?text=${genre}" alt="${genre}">
             <div class="genre-card-content">
                 <h3 class="genre-card-title">${genre}</h3>
             </div>
@@ -59,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
         renderer.setSize(sceneContainer.clientWidth, sceneContainer.clientHeight);
         sceneContainer.appendChild(renderer.domElement);
 
-              const geometry = new THREE.BoxGeometry();
+        const geometry = new THREE.BoxGeometry();
         const materials = [
             new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('https://via.placeholder.com/512x512?text=Movie+Poster+1') }),
             new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('https://via.placeholder.com/512x512?text=Movie+Poster+2') }),
