@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const choiceButtons = document.querySelectorAll('.choice-btn');
 
     interactiveVideo.addEventListener('timeupdate', () => {
-        if (interactiveVideo.currentTime > 30 && interactiveVideo.currentTime < 35) {
+        if (interactiveVideo.currentTime > 5 && interactiveVideo.currentTime < 10) {
             choiceOverlay.style.display = 'flex';
         } else {
             choiceOverlay.style.display = 'none';
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     choiceButtons.forEach(button => {
         button.addEventListener('click', () => {
             const choice = button.dataset.choice;
-            interactiveVideo.src = `videos/interactive-trailer-${choice}.mp4`;
+            interactiveVideo.src = `https://via.placeholder.com/1280x720?text=Interactive+Trailer+${choice}`;
             interactiveVideo.play();
             choiceOverlay.style.display = 'none';
         });
@@ -43,9 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
         poster.appendChild(renderer.domElement);
 
         const geometry = new THREE.BoxGeometry();
-        const material = new THREE.MeshBasicMaterial({ 
-            map: new THREE.TextureLoader().load('images/movie-poster.jpg') 
-        });
+        const texture = new THREE.TextureLoader().load('https://via.placeholder.com/512x512?text=Movie+Poster');
+        const material = new THREE.MeshBasicMaterial({ map: texture });
         cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
 
