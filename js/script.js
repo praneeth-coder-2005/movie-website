@@ -70,11 +70,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 3D Movie Poster Showcase
+      // 3D Movie Poster Showcase
     const poster = document.getElementById('3d-poster');
     let scene, camera, renderer, cube;
 
-       function init3DPoster() {
+    function init3DPoster() {
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(75, poster.clientWidth / poster.clientHeight, 0.1, 1000);
         renderer = new THREE.WebGLRenderer({ alpha: true });
