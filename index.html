@@ -57,21 +57,14 @@
             </div>
         </section>
 
-        <section id="interactive-trailer">
-            <h2>Interactive Trailer</h2>
-            <div class="trailer-container">
-                <video id="interactive-video" src="https://assets.mixkit.co/videos/preview/mixkit-man-runs-past-the-camera-32809-large.mp4"></video>
-                <div class="choice-overlay">
-                    <button class="choice-btn" data-choice="A">Chase the suspect</button>
-                    <button class="choice-btn" data-choice="B">Call for backup</button>
-                </div>
-            </div>
-        </section>
-
         <section id="3d-showcase">
-            <h2>3D Movie Showcase</h2>
+            <h2>3D Movie Experience</h2>
             <div class="showcase-container">
-                <div class="movie-poster" id="3d-poster"></div>
+                <div id="3d-scene"></div>
+                <div class="scene-controls">
+                    <button id="prev-scene">Previous</button>
+                    <button id="next-scene">Next</button>
+                </div>
             </div>
         </section>
 
@@ -120,6 +113,17 @@
             <h2>Coming Soon</h2>
             <div class="coming-soon-slider">
                 <!-- Coming soon movie cards will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <section id="interactive-storyline">
+            <h2>Create Your Own Adventure</h2>
+            <div class="story-container">
+                <p id="story-text">You are the protagonist. What will you do?</p>
+                <div id="choice-buttons">
+                    <button class="choice-btn" data-choice="A">Choice A</button>
+                    <button class="choice-btn" data-choice="B">Choice B</button>
+                </div>
             </div>
         </section>
     </main>
