@@ -9,6 +9,45 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Populate movie cards
+    const contentSlider = document.querySelector('.content-slider');
+    const movies = [
+        { title: "Cosmic Collision", genre: "Sci-Fi", duration: "2h 15m", image: "https://via.placeholder.com/300x450?text=Cosmic+Collision" },
+        { title: "Echoes of Eternity", genre: "Drama", duration: "1h 58m", image: "https://via.placeholder.com/300x450?text=Echoes+of+Eternity" },
+        { title: "Neon Nights", genre: "Thriller", duration: "2h 5m", image: "https://via.placeholder.com/300x450?text=Neon+Nights" },
+        { title: "Whispers in the Wind", genre: "Romance", duration: "2h 10m", image: "https://via.placeholder.com/300x450?text=Whispers+in+the+Wind" },
+        { title: "The Galactic Odyssey", genre: "Adventure", duration: "2h 30m", image: "https://via.placeholder.com/300x450?text=The+Galactic+Odyssey" }
+    ];
+
+    movies.forEach(movie => {
+        const movieCard = document.createElement('div');
+        movieCard.classList.add('movie-card');
+        movieCard.innerHTML = `
+            <img src="${movie.image}" alt="${movie.title}">
+            <div class="movie-card-content">
+                <h3 class="movie-card-title">${movie.title}</h3>
+                <p class="movie-card-info">${movie.genre} | ${movie.duration}</p>
+            </div>
+        `;
+        contentSlider.appendChild(movieCard);
+    });
+
+    // Populate genre grid
+    const genreGrid = document.querySelector('.genre-grid');
+    const genres = ['Action', 'Comedy', 'Drama', 'Sci-Fi', 'Horror', 'Romance', 'Thriller', 'Adventure'];
+
+    genres.forEach(genre => {
+        const genreCard = document.createElement('div');
+        genreCard.classList.add('genre-card');
+        genreCard.innerHTML = `
+            <img src="https://via.placeholder.com/150x100?text=${genre}" alt="${genre}">
+            <div class="genre-card-content">
+                <h3 class="genre-card-title">${genre}</h3>
+            </div>
+        `;
+        genreGrid.appendChild(genreCard);
+    });
+
     // Interactive Trailer
     const interactiveVideo = document.getElementById('interactive-video');
     const choiceOverlay = document.querySelector('.choice-overlay');
@@ -25,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
     choiceButtons.forEach(button => {
         button.addEventListener('click', () => {
             const choice = button.dataset.choice;
-            interactiveVideo.src = `https://via.placeholder.com/1280x720?text=Interactive+Trailer+${choice}`;
+            interactiveVideo.src = `https://assets.mixkit.co/videos/preview/mixkit-${choice === 'A' ? 'man-runs-past-the-camera' : 'police-car-lights'}-32809-large.mp4`;
             interactiveVideo.play();
             choiceOverlay.style.display = 'none';
         });
@@ -140,4 +179,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, slideInOptions);
 
     movieCards.forEach(card => slideInObserver.observe(card));
-});
+
+    // Populate coming soon section
+    const comingSoonSlider = document.querySelector('.coming-soon
