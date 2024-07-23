@@ -48,43 +48,27 @@ document.addEventListener('DOMContentLoaded', function() {
         genreGrid.appendChild(genreCard);
     });
 
-    // Interactive Trailer
-    const interactiveVideo = document.getElementById('interactive-video');
-    const choiceOverlay = document.querySelector('.choice-overlay');
-    const choiceButtons = document.querySelectorAll('.choice-btn');
-
-    interactiveVideo.addEventListener('timeupdate', () => {
-        if (interactiveVideo.currentTime > 5 && interactiveVideo.currentTime < 10) {
-            choiceOverlay.style.display = 'flex';
-        } else {
-            choiceOverlay.style.display = 'none';
-        }
-    });
-
-    choiceButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const choice = button.dataset.choice;
-            interactiveVideo.src = `https://assets.mixkit.co/videos/preview/mixkit-${choice === 'A' ? 'man-runs-past-the-camera' : 'police-car-lights'}-32809-large.mp4`;
-            interactiveVideo.play();
-            choiceOverlay.style.display = 'none';
-        });
-    });
-
-      // 3D Movie Poster Showcase
-    const poster = document.getElementById('3d-poster');
+    // 3D Movie Experience
     let scene, camera, renderer, cube;
+    const sceneContainer = document.getElementById('3d-scene');
 
-    function init3DPoster() {
+    function init3DScene() {
         scene = new THREE.Scene();
-        camera = new THREE.PerspectiveCamera(75, poster.clientWidth / poster.clientHeight, 0.1, 1000);
-        renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize(poster.clientWidth, poster.clientHeight);
-        poster.appendChild(renderer.domElement);
+        camera = new THREE.PerspectiveCamera(75, sceneContainer.clientWidth / sceneContainer.clientHeight, 0.1, 1000);
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(sceneContainer.clientWidth, sceneContainer.clientHeight);
+        sceneContainer.appendChild(renderer.domElement);
 
-        const geometry = new THREE.BoxGeometry();
-        const texture = new THREE.TextureLoader().load('https://via.placeholder.com/512x512?text=Movie+Poster');
-        const material = new THREE.MeshBasicMaterial({ map: texture });
-        cube = new THREE.Mesh(geometry, material);
+              const geometry = new THREE.BoxGeometry();
+        const materials = [
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('https://via.placeholder.com/512x512?text=Movie+Poster+1') }),
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('https://via.placeholder.com/512x512?text=Movie+Poster+2') }),
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('https://via.placeholder.com/512x512?text=Movie+Poster+3') }),
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('https://via.placeholder.com/512x512?text=Movie+Poster+4') }),
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('https://via.placeholder.com/512x512?text=Movie+Poster+5') }),
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('https://via.placeholder.com/512x512?text=Movie+Poster+6') })
+        ];
+        cube = new THREE.Mesh(geometry, materials);
         scene.add(cube);
 
         camera.position.z = 5;
@@ -99,7 +83,34 @@ document.addEventListener('DOMContentLoaded', function() {
         renderer.render(scene, camera);
     }
 
-    init3DPoster();
+    init3DScene();
+
+    // Scene controls
+    const prevSceneBtn = document.getElementById('prev-scene');
+    const nextSceneBtn = document.getElementById('next-scene');
+    let currentScene = 0;
+    const totalScenes = 3;
+
+    function updateScene(direction) {
+        currentScene = (currentScene + direction + totalScenes) % totalScenes;
+        switch(currentScene) {
+            case 0:
+                cube.rotation.x = 0;
+                cube.rotation.y = 0;
+                break;
+            case 1:
+                cube.rotation.x = Math.PI / 2;
+                cube.rotation.y = 0;
+                break;
+            case 2:
+                cube.rotation.x = 0;
+                cube.rotation.y = Math.PI / 2;
+                break;
+        }
+    }
+
+    prevSceneBtn.addEventListener('click', () => updateScene(-1));
+    nextSceneBtn.addEventListener('click', () => updateScene(1));
 
     // AI Recommendations
     const aiRecommendationsList = document.getElementById('ai-recommendations-list');
@@ -204,6 +215,83 @@ document.addEventListener('DOMContentLoaded', function() {
         theaterVideo.play();
         startTheaterButton.style.display = 'none';
     });
+
+    // Interactive Storyline
+    const storyText = document.getElementById('story-text');
+    const choiceButtons = document.querySelectorAll('.choice-btn');
+
+    const storyLines = {
+        start: {
+            text: "You find yourself in a mysterious cinema. Do you want to watch a movie or explore the building?",
+            choices: [
+                { text: "Watch a movie", next: "movie" },
+                { text: "Explore the building", next: "explore" }
+            ]
+        },
+        movie: {
+            text: "You sit down to watch a movie. The screen flickers to life, showing a scene of a bustling city. What genre do you hope this movie will be?",
+            choices: [
+                { text: "Action thriller", next: "action" },
+                { text: "Sci-fi adventure", next: "scifi" }
+            ]
+        },
+        explore: {
+            text: "As you wander the halls, you discover a hidden door. Do you open it or return to the main area?",
+            choices: [
+                { text: "Open the door", next: "door" },
+                { text: "Return to main area", next: "start" }
+            ]
+        },
+        action: {
+            text: "The movie turns into an intense car chase. You feel like you're part of the action! The end.",
+            choices: [
+                { text: "Restart", next: "start" },
+                { text: "Exit story", next: "exit" }
+            ]
+        },
+        scifi: {
+            text: "The city transforms into a futuristic metropolis. You're captivated by the advanced technology. The end.",
+            choices: [
+                { text: "Restart", next: "start" },
+                { text: "Exit story", next: "exit" }
+            ]
+        },
+        door: {
+            text: "Behind the door, you find a room full of film reels from movies that were never released. The end.",
+            choices: [
+                { text: "Restart", next: "start" },
+                { text: "Exit story", next: "exit" }
+            ]
+        }
+    };
+
+    function updateStory(storyKey) {
+        const story = storyLines[storyKey];
+        storyText.textContent = story.text;
+        choiceButtons.forEach((button, index) => {
+            if (index < story.choices.length) {
+                button.textContent = story.choices[index].text;
+                button.dataset.next = story.choices[index].next;
+                button.style.display = 'inline-block';
+            } else {
+                button.style.display = 'none';
+            }
+        });
+    }
+
+    choiceButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const next = button.dataset.next;
+            if (next === 'exit') {
+                storyText.textContent = "Thanks for playing!";
+                choiceButtons.forEach(btn => btn.style.display = 'none');
+            } else {
+                updateStory(next);
+            }
+        });
+    });
+
+    updateStory('start');
 
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
