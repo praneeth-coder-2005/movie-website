@@ -6,6 +6,7 @@
     <title>Hari-Movies - Your Mobile Movie Experience</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 </head>
 <body>
     <header>
@@ -24,18 +25,21 @@
     </header>
 
     <main>
-        <section id="hero">
-            <div class="hero-content">
-                <h1>Blockbuster Hits</h1>
-                <p>Experience the best movies on your mobile</p>
-                <button class="cta-button">Watch Now</button>
+        <section id="hero-slider">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide content will be dynamically inserted here -->
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
         </section>
 
-        <section id="trending">
-            <h2>Trending Now</h2>
-            <div class="content-slider">
-                <!-- Movie cards will be dynamically inserted here -->
+        <section id="top-10-trending">
+            <h2>Top 10 Trending</h2>
+            <div class="trending-grid">
+                <!-- Top 10 trending movies will be dynamically inserted here -->
             </div>
         </section>
 
@@ -43,6 +47,13 @@
             <h2>Explore Genres</h2>
             <div class="genre-grid">
                 <!-- Genre cards will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <section id="actors">
+            <h2>Popular Actors</h2>
+            <div class="actors-grid">
+                <!-- Actor blocks will be dynamically inserted here -->
             </div>
         </section>
 
@@ -85,15 +96,6 @@
                 <p>Your mobile gateway to endless entertainment.</p>
             </div>
             <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Terms of Use</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
                 <h3>Connect With Us</h3>
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-facebook"></i></a>
@@ -107,6 +109,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
