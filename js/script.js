@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const genreCard = document.createElement('div');
         genreCard.classList.add('genre-card');
         genreCard.innerHTML = `
-                       <img src="https://via.placeholder.com/150x100?text=${genre}" alt="${genre}">
+            <img src="https://via.placeholder.com/150x100?text=${genre}" alt="${genre}">
             <div class="genre-card-content">
                 <h3 class="genre-card-title">${genre}</h3>
             </div>
@@ -345,6 +345,84 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     updateStory('start');
+
+    // User Profile Dropdown
+    const userProfile = document.querySelector('.user-profile');
+    const profileDropdown = document.querySelector('.profile-dropdown');
+
+    userProfile.addEventListener('click', () => {
+        profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!userProfile.contains(event.target)) {
+            profileDropdown.style.display = 'none';
+        }
+    });
+
+    // User Reviews
+    const reviewForm = document.querySelector('.review-form');
+    const reviewText = document.getElementById('review-text');
+    const submitReview = document.getElementById('submit-review');
+    const reviewsContainer = document.querySelector('.reviews-container');
+
+    submitReview.addEventListener('click', () => {
+        if (reviewText.value.trim() !== '') {
+            const review = document.createElement('div');
+            review.classList.add('review');
+            review.textContent = reviewText.value;
+            reviewsContainer.prepend(review);
+            reviewText.value = '';
+        }
+    });
+
+    // Social Sharing
+    const shareButtons = document.querySelectorAll('.share-btn');
+
+    shareButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const platform = button.dataset.platform;
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Check out this awesome movie on Hari-Movies!');
+            let shareUrl;
+
+            switch (platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+                    break;
+                case 'instagram':
+                    alert('Instagram sharing is not directly supported. You can copy the link and share it manually.');
+                    return;
+            }
+
+            window.open(shareUrl, '_blank');
+        });
+    });
+
+    // Personalized Recommendations (simplified example)
+    function getPersonalizedRecommendations() {
+        // In a real app, this would be based on user's viewing history and preferences
+        const recommendations = [
+            "Based on your love for sci-fi: 'Cosmic Odyssey'",
+            "Since you enjoyed romantic comedies: 'Love in the Digital Age'",
+            "For fans of historical dramas like you: 'Echoes of Empires'"
+        ];
+
+        const aiRecommendationsList = document.getElementById('ai-recommendations-list');
+        aiRecommendationsList.innerHTML = '';
+
+        recommendations.forEach(rec => {
+            const li = document.createElement('li');
+            li.textContent = rec;
+            aiRecommendationsList.appendChild(li);
+        });
+    }
+
+    // Call this function when the page loads or the user logs in
+    getPersonalizedRecommendations();
 
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
