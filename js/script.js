@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     const swiperWrapper = document.querySelector('.swiper-wrapper');
-    heroSlides.forEach(slide => {
+        heroSlides.forEach(slide => {
         const slideElement = document.createElement('div');
         slideElement.classList.add('swiper-slide');
         slideElement.style.backgroundImage = `url(${slide.image})`;
@@ -35,29 +35,35 @@ document.addEventListener('DOMContentLoaded', function() {
         swiperWrapper.appendChild(slideElement);
     });
 
-    // Populate top 10 trending
-    const trendingGrid = document.querySelector('.trending-grid');
-    const trendingMovies = [
-        "Cosmic Collision", "Echoes of Eternity", "Neon Nights", "Whispers in the Wind",
-        "The Galactic Odyssey", "Legends of the Lost", "Temporal Twist", "Quantum Quest",
-        "Mystic Melodies", "Cyber Serendipity"
+    // Populate featured movies
+    const featuredGrid = document.querySelector('.featured-grid');
+    const featuredMovies = [
+        { title: "Stellar Saga", genre: "Sci-Fi", image: "https://via.placeholder.com/300x450?text=Stellar+Saga" },
+        { title: "Midnight Mystery", genre: "Thriller", image: "https://via.placeholder.com/300x450?text=Midnight+Mystery" },
+        { title: "Love in Paris", genre: "Romance", image: "https://via.placeholder.com/300x450?text=Love+in+Paris" },
+        { title: "Jungle Quest", genre: "Adventure", image: "https://via.placeholder.com/300x450?text=Jungle+Quest" },
+        { title: "Cyber Rebellion", genre: "Action", image: "https://via.placeholder.com/300x450?text=Cyber+Rebellion" },
+        { title: "Haunted Mansion", genre: "Horror", image: "https://via.placeholder.com/300x450?text=Haunted+Mansion" }
     ];
 
-    trendingMovies.forEach((movie, index) => {
-        const trendingCard = document.createElement('div');
-        trendingCard.classList.add('trending-card');
-        trendingCard.innerHTML = `
-            <img src="https://via.placeholder.com/200x300?text=${movie}" alt="${movie}">
-            <div class="trending-number">${index + 1}</div>
+    featuredMovies.forEach(movie => {
+        const movieCard = document.createElement('div');
+        movieCard.classList.add('featured-card');
+        movieCard.innerHTML = `
+            <img src="${movie.image}" alt="${movie.title}">
+            <div class="featured-card-content">
+                <h3>${movie.title}</h3>
+                <p>${movie.genre}</p>
+            </div>
         `;
-        trendingGrid.appendChild(trendingCard);
+        featuredGrid.appendChild(movieCard);
     });
 
     // Populate genre grid
     const genreGrid = document.querySelector('.genre-grid');
     const genres = ['Action', 'Comedy', 'Drama', 'Sci-Fi', 'Horror', 'Romance', 'Thriller', 'Adventure'];
 
-     genres.forEach(genre => {
+    genres.forEach(genre => {
         const genreCard = document.createElement('div');
         genreCard.classList.add('genre-card');
         genreCard.innerHTML = `
@@ -141,6 +147,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Populate coming soon section
+    const comingSoonGrid = document.querySelector('.coming-soon-grid');
+    const comingSoonMovies = [
+        { title: "Future Shock", releaseDate: "Coming next month", image: "https://via.placeholder.com/300x450?text=Future+Shock" },
+        { title: "Mystic Realms", releaseDate: "In 2 months", image: "https://via.placeholder.com/300x450?text=Mystic+Realms" },
+        { title: "Quantum Leap", releaseDate: "Coming soon", image: "https://via.placeholder.com/300x450?text=Quantum+Leap" },
+        { title: "Echoes of Time", releaseDate: "Next year", image: "https://via.placeholder.com/300x450?text=Echoes+of+Time" }
+    ];
+
+    comingSoonMovies.forEach(movie => {
+        const movieCard = document.createElement('div');
+        movieCard.classList.add('coming-soon-card');
+        movieCard.innerHTML = `
+            <img src="${movie.image}" alt="${movie.title}">
+            <div class="coming-soon-card-content">
+                <h3>${movie.title}</h3>
+                <p>${movie.releaseDate}</p>
+            </div>
+        `;
+        comingSoonGrid.appendChild(movieCard);
+    });
+
     // User Reviews
     const reviewForm = document.querySelector('.review-form');
     const reviewText = document.getElementById('review-text');
@@ -157,26 +185,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Populate coming soon section
-    const comingSoonSlider = document.querySelector('.coming-soon-slider');
-    const comingSoonMovies = [
-        { title: "Future Shock", releaseDate: "Coming next month" },
-        { title: "Mystic Realms", releaseDate: "In 2 months" },
-        { title: "Quantum Leap", releaseDate: "Coming soon" },
-        { title: "Echoes of Time", releaseDate: "Next year" }
+    // Populate top 10 trending
+    const trendingGrid = document.querySelector('.trending-grid');
+    const trendingMovies = [
+        "Cosmic Collision", "Echoes of Eternity", "Neon Nights", "Whispers in the Wind",
+        "The Galactic Odyssey", "Legends of the Lost", "Temporal Twist", "Quantum Quest",
+        "Mystic Melodies", "Cyber Serendipity"
     ];
 
-    comingSoonMovies.forEach(movie => {
-        const movieCard = document.createElement('div');
-        movieCard.classList.add('movie-card');
-        movieCard.innerHTML = `
-            <img src="https://via.placeholder.com/150x225?text=${movie.title}" alt="${movie.title}">
-            <div class="movie-card-content">
-                <h3 class="movie-card-title">${movie.title}</h3>
-                <p class="movie-card-info">${movie.releaseDate}</p>
-            </div>
+    trendingMovies.forEach((movie, index) => {
+        const trendingCard = document.createElement('div');
+        trendingCard.classList.add('trending-card');
+        trendingCard.innerHTML = `
+            <img src="https://via.placeholder.com/200x300?text=${movie}" alt="${movie}">
+            <div class="trending-number">${index + 1}</div>
         `;
-        comingSoonSlider.appendChild(movieCard);
+        trendingGrid.appendChild(trendingCard);
     });
 
     // Smooth scrolling for anchor links
@@ -207,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
     sections.forEach(section => fadeInObserver.observe(section));
 
     // Add slide-in animation to movie cards
-    const movieCards = document.querySelectorAll('.movie-card');
+    const movieCards = document.querySelectorAll('.movie-card, .featured-card, .coming-soon-card, .trending-card');
     const slideInOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -244,3 +268,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     lazyImages.forEach(img => lazyLoadObserver.observe(img));
 });
+
