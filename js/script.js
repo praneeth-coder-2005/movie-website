@@ -1,32 +1,63 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Populate movie cards
-    const contentSlider = document.querySelector('.content-slider');
-    const movies = [
-        { title: "Cosmic Collision", genre: "Sci-Fi", image: "https://via.placeholder.com/300x450?text=Cosmic+Collision" },
-        { title: "Echoes of Eternity", genre: "Drama", image: "https://via.placeholder.com/300x450?text=Echoes+of+Eternity" },
-        { title: "Neon Nights", genre: "Thriller", image: "https://via.placeholder.com/300x450?text=Neon+Nights" },
-        { title: "Whispers in the Wind", genre: "Romance", image: "https://via.placeholder.com/300x450?text=Whispers+in+the+Wind" },
-        { title: "The Galactic Odyssey", genre: "Adventure", image: "https://via.placeholder.com/300x450?text=The+Galactic+Odyssey" }
+    // Initialize Swiper
+    const swiper = new Swiper('.swiper', {
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+
+    // Populate hero slider
+    const heroSlides = [
+        { title: "Cosmic Collision", description: "A sci-fi epic", image: "https://via.placeholder.com/1000x500?text=Cosmic+Collision" },
+        { title: "Echoes of Eternity", description: "A timeless romance", image: "https://via.placeholder.com/1000x500?text=Echoes+of+Eternity" },
+        { title: "Neon Nights", description: "A thrilling noir adventure", image: "https://via.placeholder.com/1000x500?text=Neon+Nights" },
+        { title: "Whispers in the Wind", description: "A touching drama", image: "https://via.placeholder.com/1000x500?text=Whispers+in+the+Wind" },
+        { title: "The Galactic Odyssey", description: "An interstellar journey", image: "https://via.placeholder.com/1000x500?text=The+Galactic+Odyssey" },
+        { title: "Legends of the Lost", description: "An archaeological adventure", image: "https://via.placeholder.com/1000x500?text=Legends+of+the+Lost" }
     ];
 
-    movies.forEach(movie => {
-        const movieCard = document.createElement('div');
-        movieCard.classList.add('movie-card');
-        movieCard.innerHTML = `
-            <img src="${movie.image}" alt="${movie.title}">
-            <div class="movie-card-content">
-                <h3 class="movie-card-title">${movie.title}</h3>
-                <p class="movie-card-info">${movie.genre}</p>
+    const swiperWrapper = document.querySelector('.swiper-wrapper');
+    heroSlides.forEach(slide => {
+        const slideElement = document.createElement('div');
+        slideElement.classList.add('swiper-slide');
+        slideElement.style.backgroundImage = `url(${slide.image})`;
+        slideElement.innerHTML = `
+            <div class="slide-content">
+                <h2 class="slide-title">${slide.title}</h2>
+                <p class="slide-description">${slide.description}</p>
             </div>
         `;
-        contentSlider.appendChild(movieCard);
+        swiperWrapper.appendChild(slideElement);
+    });
+
+    // Populate top 10 trending
+    const trendingGrid = document.querySelector('.trending-grid');
+    const trendingMovies = [
+        "Cosmic Collision", "Echoes of Eternity", "Neon Nights", "Whispers in the Wind",
+        "The Galactic Odyssey", "Legends of the Lost", "Temporal Twist", "Quantum Quest",
+        "Mystic Melodies", "Cyber Serendipity"
+    ];
+
+    trendingMovies.forEach((movie, index) => {
+        const trendingCard = document.createElement('div');
+        trendingCard.classList.add('trending-card');
+        trendingCard.innerHTML = `
+            <img src="https://via.placeholder.com/200x300?text=${movie}" alt="${movie}">
+            <div class="trending-number">${index + 1}</div>
+        `;
+        trendingGrid.appendChild(trendingCard);
     });
 
     // Populate genre grid
     const genreGrid = document.querySelector('.genre-grid');
     const genres = ['Action', 'Comedy', 'Drama', 'Sci-Fi', 'Horror', 'Romance', 'Thriller', 'Adventure'];
 
-    genres.forEach(genre => {
+     genres.forEach(genre => {
         const genreCard = document.createElement('div');
         genreCard.classList.add('genre-card');
         genreCard.innerHTML = `
@@ -35,6 +66,34 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         genreGrid.appendChild(genreCard);
     });
+
+    // Populate actors section
+    const actorsGrid = document.querySelector('.actors-grid');
+    const actors = [
+        { name: "John Doe", image: "https://via.placeholder.com/100x100?text=John+Doe" },
+        { name: "Jane Smith", image: "https://via.placeholder.com/100x100?text=Jane+Smith" },
+        { name: "Mike Johnson", image: "https://via.placeholder.com/100x100?text=Mike+Johnson" },
+        { name: "Emily Brown", image: "https://via.placeholder.com/100x100?text=Emily+Brown" },
+        { name: "Chris Lee", image: "https://via.placeholder.com/100x100?text=Chris+Lee" },
+        { name: "Sarah Wilson", image: "https://via.placeholder.com/100x100?text=Sarah+Wilson" }
+    ];
+
+    actors.forEach(actor => {
+        const actorCard = document.createElement('div');
+        actorCard.classList.add('actor-card');
+        actorCard.innerHTML = `
+            <img src="${actor.image}" alt="${actor.name}">
+            <p>${actor.name}</p>
+        `;
+        actorCard.addEventListener('click', () => showActorMovies(actor.name));
+        actorsGrid.appendChild(actorCard);
+    });
+
+    function showActorMovies(actorName) {
+        // This is a placeholder function. In a real app, you would fetch the actor's movies from a database.
+        alert(`Showing movies starring ${actorName}`);
+        // You could then populate a modal or a new section with the actor's movies.
+    }
 
     // Mood-based Recommendations
     const moodButtons = document.querySelectorAll('.mood-btn');
@@ -62,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
             { title: "Cozy Nights", genre: "Slice of Life" }
         ]
     };
+
     moodButtons.forEach(button => {
         button.addEventListener('click', () => {
             const mood = button.dataset.mood;
@@ -164,35 +224,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     movieCards.forEach(card => slideInObserver.observe(card));
 
-    // Mobile menu toggle
-    const menuToggle = document.createElement('div');
-    menuToggle.classList.add('menu-toggle');
-    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-    document.querySelector('nav').appendChild(menuToggle);
-
-    const mobileMenu = document.createElement('div');
-    mobileMenu.classList.add('mobile-menu');
-    mobileMenu.innerHTML = `
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#movies">Movies</a></li>
-            <li><a href="#tvshows">TV Shows</a></li>
-            <li><a href="#mylist">My List</a></li>
-        </ul>
-    `;
-    document.body.appendChild(mobileMenu);
-
-    menuToggle.addEventListener('click', () => {
-        mobileMenu.classList.toggle('active');
-    });
-
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (event) => {
-        if (!menuToggle.contains(event.target) && !mobileMenu.contains(event.target)) {
-            mobileMenu.classList.remove('active');
-        }
-    });
-
     // Lazy loading images
     const lazyImages = document.querySelectorAll('img[data-src]');
     const lazyLoadOptions = {
@@ -213,4 +244,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
     lazyImages.forEach(img => lazyLoadObserver.observe(img));
 });
-
