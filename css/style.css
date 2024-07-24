@@ -119,33 +119,32 @@ h2 {
     margin-bottom: 1rem;
 }
 
-/* Top 10 Trending */
-.trending-grid {
+/* Featured Movies */
+.featured-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 1rem;
 }
 
-.trending-card {
+.featured-card {
     position: relative;
     overflow: hidden;
     border-radius: 8px;
 }
 
-.trending-card img {
+.featured-card img {
     width: 100%;
     height: auto;
     object-fit: cover;
 }
 
-.trending-number {
+.featured-card-content {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    right: 0;
     padding: 0.5rem;
-    font-size: 1.2rem;
-    font-weight: bold;
+    background: rgba(0, 0, 0, 0.7);
 }
 
 /* Genre Grid */
@@ -202,6 +201,34 @@ h2 {
     cursor: pointer;
 }
 
+/* Coming Soon */
+.coming-soon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.coming-soon-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.coming-soon-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.coming-soon-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.7);
+}
+
 /* User Reviews */
 .review-form {
     margin-bottom: 1rem;
@@ -235,6 +262,35 @@ h2 {
     padding: 0.5rem;
     margin-bottom: 0.5rem;
     border-radius: 5px;
+}
+
+/* Top 10 Trending */
+.trending-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+}
+
+.trending-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.trending-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.trending-number {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
 /* Footer Styles */
@@ -283,8 +339,8 @@ footer {
         height: 40vh;
     }
 
-    .trending-grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    .featured-grid, .coming-soon-grid, .trending-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
 
     .genre-grid, .actors-grid {
